@@ -2,11 +2,22 @@
 
 El objetivo principal de este workshop es explorar algunas de las funciones del editor Spyder para realizar proyectos de computación científica. Para ello, trabajaremos en visualizar los resultados de detección de transposones usando librerias de Python como `numpy`, `matplotlib` y `sklearn`. Los datos que vamos a utilizar incluyen las anotaciones y predicciones de transposones realizadas por el algoritmo X para el ensamblaje de levadura.
 
-## Prerequisitos
+## Tabla de contenidos
+
+1. [Prerequisitos](#pre)
+2. [Primeros pasos](#pripasos)
+3. [Reconociendo el proyecto](#reconociendo)
+4. [Importando librerias](#import)
+4. [Explorando los datos](#exp)
+5. [Cargando y representando los datos](#carg)
+6. [Calculando las métricas de evaluación](#met)
+7. [Graficando las curvas de precisión/cobertura y ROC](#graf)
+
+## Prerequisitos <a name="pre"></a>
 
 ### Creando ambiente de Anaconda
 
-Es necesario realizar la instalación de Anaconda para crear un ambiente de desarrollo. Para instalar este programa por favor vaya a este [enlace](FALTA EL LINK) y descargue el instalador para su sistema operativo. Una vez este instalado, abra una terminal del sistema y cree un ambiente con Python 3.8 llamado `t-workshop` como lo indican las siguientes instruciones,
+Es necesario realizar la instalación de Anaconda para crear un ambiente de desarrollo. Para instalar este programa por favor vaya a este [enlace](https://www.anaconda.com/products/individual) y descargue el instalador para su sistema operativo. Una vez este instalado, abra una terminal del sistema y cree un ambiente con Python 3.8 llamado `t-workshop` como lo indican las siguientes instruciones,
 
 ```
 conda create -n t-workshop -c conda-forge python=3.8
@@ -15,7 +26,7 @@ conda activate t-workshop
 
 ### Instalando Spyder
 
-Adicionalmente, necesitaremos instalar el editor Spyder, recomendamos los instaladores de Spyder para los usuarios de Windows o Mac disponibles [aquí](FALTA EL LINK). También se puede descargar Spyder desde anaconda desde una terminal del sistema siguiendo la instrucción,
+Adicionalmente, necesitaremos instalar el editor Spyder, recomendamos los instaladores de Spyder para los usuarios de Windows o Mac disponibles [aquí](https://github.com/spyder-ide/spyder/releases/tag/v5.0.5). También se puede descargar Spyder desde anaconda desde una terminal del sistema siguiendo la instrucción,
 
 ```
 conda install spyder -c conda-forge
@@ -29,9 +40,9 @@ Las librerias necesarias para este workshop son `numpy`, `pandas`, `matplotlib` 
 conda install numpy matplotlib scikit-learn pandas -c conda-forge
 ```
 
-**Nota:** Si utilizó uno de los instaladores para Mac o Windows de Spyder terminal por favor siga las instrucciones para conectar nuestro nuevo ambiente al editor de Spyder disponibles [aquí](FALTA EL LINK)
+**Nota:** Si utilizó uno de los instaladores para Mac o Windows de Spyder terminal por favor siga las instrucciones para conectar nuestro nuevo ambiente al editor de Spyder disponibles [aquí](https://docs.spyder-ide.org/current/faq.html#using-existing-environment).
 
-## Primeros pasos
+## Primeros pasos <a name="pripasos"></a>
 Si está familiarizado con `git`, por favor clone el siguiente repositorio,
 
 ```
@@ -42,10 +53,10 @@ De otra forma, se pueden descargar los contenidos de este workshop en este [enla
 
 Una vez descargue el material, inicie Spyder utilizando el acceso directo disponible en su computador. Abra el workshop en Spyder como un proyecto utilizando el menu `Proyecto > Abrir proyecto` y seleccionando la carpeta previamente descargada. Finalmente, abra el archivo `workshop.py` haciendo doble click en él en el explorador de archivos dentro de Spyder.
 
-## Reconociendo el proyecto
+## Reconociendo el proyecto <a name="reconociendo"></a>
 Una vez abramos el proyecto en Spyder, vamos a encontrar tres carpetas bajo el mismo nivel. La carpeta `data` contiene los datos sobre los que vamos a trabajar. Dentro de ella, tenemos un archivo que contiene las anotaciones de transposones y adicionalmente tenemos dos archivos con diferentes predicciones realizadas por el algoritmo X. Por otra parte, la carpeta `workshop` contiene los archivos que vamos a modificar hoy. Por último, la carpeta `solution` contiene la solución del workshop que realizaremos hoy.
 
-## Importando librerias
+## Importando librerias <a name="import"></a>
 Lo primero que necesitamos hacer es importar las librerias que ya tenemos instaladas en nuestro sistema en nuestro archivo `main.py`.
 
 ```
@@ -56,7 +67,7 @@ import sklearn.metrics as metrics
 from heapq import heappush, heappop
 ```
 
-## Explorando los datos
+## Explorando los datos <a name="exp"></a>
 Para explorar los datos de anotaciones y preddiciones de transposones para levadura vamos a cargar los datos en Spyder y utilizando las siguientes instrucciones en la IPython Console,
 
 ```
@@ -68,7 +79,7 @@ pred_a = pd.read_csv('./data/predA.csv')
 pred_b = pd.read_csv('./data/predA.csv')
 ```
 
-## Cargando y representando los datos
+## Cargando y representando los datos <a name="carg"></a>
 
 Dados los campos de cada uno de los archivos, nos podemos dar cuenta que podemos crear una clase de Python para cargar los archivos y después poder manipularlos de forma sencilla. La idea principal, es que esta clase contenga la información del nombre de la secuencia, en este caso particular el cromosoma, el inicio y fin del transposon y la fiabilidad de la predicción. Adicionalmente vamos a definir funciones que utilizaremos para calcular las métricas y generar las gráficas de nuestra evaluación.
 
@@ -119,7 +130,7 @@ def get_overlap(self, transposon):
                       len(self), len(transposon)))
 ```
 
-Adicionalmente, vamos a definir algunos métodos especiales del protocolo de Python, conocidos en ingles como __dunder methods__. Estas funciones ya se encuentran incorporadas al lenguaje, y nos permiten utilizar otros métodos reservados como `len` o inclusive las comparaciones numéricas e igualdades. En este caso, vamos a crear un método que retorne la longitud de nuestro transposon, otro para comparación e igualdad y la representación en cadena de texto,
+Adicionalmente, vamos a definir algunos métodos especiales del protocolo de Python, conocidos en ingles como *dunder methods*. Estas funciones ya se encuentran incorporadas al lenguaje, y nos permiten utilizar otros métodos reservados como `len` o inclusive las comparaciones numéricas e igualdades. En este caso, vamos a crear un método que retorne la longitud de nuestro transposon, otro para comparación e igualdad y la representación en cadena de texto,
 
 ```
 # Retornar la longitud del transposon
@@ -182,7 +193,7 @@ pred_a = process_info(pred_a)
 pred_b = process_info(pred_b)
 ```
 
-## Calculando las métricas para un umbral dado
+## Calculando las métricas de evaluación <a name="met"></a>
 En muchos problemas de detección encontramos que no hay un umbral específico definido para definir si una predicción es correcta. Por ello, vamos a definir una función que reciba este valor como un parámetro. Esta función va a calcular el valor de verdaderos positivos, falsos negativos, falsos positivos,
 
 ```
@@ -293,7 +304,7 @@ result_a = calculate_metrics(anotaciones, pred_a)
 result_b = calculate_metrics(anotaciones, pred_b)
 ```
 
-## Graficando las curvas de precisión/cobertura y ROC
+## Graficando las curvas de precisión/cobertura y ROC <a name="graf"></a>
 Como ya pudimos calcular los resultados para precisión, cobertura, F-medida, total de falsos positivos y total de verdaderos positivos, podemos empezar a graficar las curvas de precisión/cobertura y ROC. Para la primera gráfica, utilizaremos las funciones previamente realizadas variando la confianza aceptada por el algoritmo x, llamado `score`, de tal forma que solo se tengan en cuenta las detecciones de mayor puntaje. Mientras que para la curva ROC solamente necesitaremos el total de falsos positivos y el total de verdaderos positivos.
 
 ### Curva de precisión/cobertura
@@ -363,7 +374,7 @@ plot_PR(grafica_b[0], grafica_b[1], 0.5)
 ```
 
 ### Curva ROC
-De forma similar y utilizando el paquete de metricas de `sklearn` podremos gráficar la curva ROC. Para ello, vamos a definir una nueva función,
+De forma similar y utilizando el paquete de metricas de `sklearn` podremos gráficar la curva Característica Operativa del Receptor (ROC). Para ello, vamos a definir una nueva función,
 
 ```
 # Función para generar la gráfica ROC
