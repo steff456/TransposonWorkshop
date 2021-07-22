@@ -57,7 +57,7 @@ Si está familiarizado con `git`, por favor clone el siguiente repositorio,
 git clone https://github.com/steff456/WorkshopTransposones
 ```
 
-De otra forma, se pueden descargar los contenidos de este workshop en este [enlace](FALTA EL LINK).
+De otra forma, se pueden descargar los contenidos de este workshop en este [enlace](https://drive.google.com/file/d/1yYyHPnDDZdHjjTDdTqKBjL5k5_lMAczK/view?usp=sharing).
 
 Una vez descargue el material, inicie Spyder utilizando el acceso directo disponible en su computador. Abra el workshop en Spyder como un proyecto utilizando el menu `Proyecto > Abrir proyecto` y seleccionando la carpeta previamente descargada. Finalmente, abra el archivo `workshop.py` haciendo doble click en él en el explorador de archivos dentro de Spyder.
 
