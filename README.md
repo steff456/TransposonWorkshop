@@ -4,11 +4,11 @@ El objetivo principal de este workshop es explorar algunas de las funciones del 
 
 Después de realizar este workshop podrás lograr siguientes 5 actividades,
 
-a. Abrir y editar un proyecto en Spyder.
-b. Cargar datos de archivos separados por coma.
-c. Crear una clase en python e importarla en un archivo.
-d. Definir funciones para calcular métricas de evaluación para problemas de detección.
-e. Graficar curvas de precisión-cobertura y ROC.
+1. Abrir y editar un proyecto en Spyder.
+2. Cargar datos de archivos separados por coma.
+3. Crear una clase en python e importarla en un archivo.
+4. Definir funciones para calcular métricas de evaluación para problemas de detección.
+5. Graficar curvas de precisión-cobertura y ROC.
 
 ## Tabla de contenidos
 
