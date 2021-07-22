@@ -1,6 +1,14 @@
 # Visualizando resultados para evaluación de detección de transposones con Spyder
 
-El objetivo principal de este workshop es explorar algunas de las funciones del editor Spyder para realizar proyectos de computación científica. Para ello, trabajaremos en visualizar los resultados de detección de transposones usando librerias de Python como `numpy`, `matplotlib` y `sklearn`. Los datos que vamos a utilizar incluyen las anotaciones y predicciones de transposones realizadas por el algoritmo X para el ensamblaje de levadura.
+El objetivo principal de este workshop es explorar algunas de las funciones del editor Spyder para realizar proyectos de computación científica. Para ello, trabajaremos en visualizar los resultados de detección de transposones usando librerias de Python como `numpy`, `matplotlib` y `sklearn`. Los datos que vamos a utilizar incluyen las anotaciones y predicciones de transposones realizadas por el algoritmo X para el ensamblaje de levadura. Para mayor información sobre el problema de detección de transposones, hay mas información en las diapositivas disponibles [acá](https://drive.google.com/file/d/1Mi9FVUcnBEZwJJelOeHxZrj-mD45oXIB/view?usp=sharing).
+
+Después de realizar este workshop podrás lograr siguientes 5 actividades,
+
+a. Abrir y editar un proyecto en Spyder.
+b. Cargar datos de archivos separados por coma.
+c. Crear una clase en python e importarla en un archivo.
+d. Definir funciones para calcular métricas de evaluación para problemas de detección.
+e. Graficar curvas de precisión-cobertura y ROC.
 
 ## Tabla de contenidos
 
