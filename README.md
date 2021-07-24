@@ -67,7 +67,7 @@ Una vez abramos el proyecto en Spyder, vamos a encontrar tres carpetas bajo el m
 ## Importando librerias <a name="import"></a>
 Lo primero que necesitamos hacer es importar las librerias que ya tenemos instaladas en nuestro sistema en nuestro archivo `main.py`.
 
-```
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -78,7 +78,7 @@ from heapq import heappush, heappop
 ## Explorando los datos <a name="exp"></a>
 Para explorar los datos de anotaciones y preddiciones de transposones para levadura vamos a cargar los datos en Spyder y utilizando las siguientes instrucciones en la IPython Console,
 
-```
+```python
 # Cargar las anotaciones
 anotaciones = pd.read_csv('./data/groundtruth.csv')
 
@@ -93,7 +93,7 @@ Dados los campos de cada uno de los archivos, nos podemos dar cuenta que podemos
 
 En el archivo `transposon.py` vamos a definir la clase de la siguiente manera:
 
-```
+```python
 class Transposon():
     # Definir inicializacion del objeto
     # Definir si hay sobrelape con otro transposon
@@ -106,7 +106,7 @@ class Transposon():
 
 Pimero, vamos a definir la inicialización del objeto, para ello vamos a hacer un constructor que espere los datos del nombre de la secuencia, inicio, fin y fiabilidad como parámetros,
 
-```
+```python
 # Definir inicializacion del objeto
 def __init__(self, seq_name, first, last, score):
     self.sequence_name = seq_name
@@ -117,7 +117,7 @@ def __init__(self, seq_name, first, last, score):
 
 Dado que definimos nuestra métrica de evaluación como un sobrelape, vamos a desarrollar una función que nos permita definir si dos transposones se sobrelapan,
 
-```
+```python
 # Definir si hay sobrelape con otro transposon
 def is_overlap(self, transposon):
     if self.first <= transposon.last <= self.last:
@@ -130,7 +130,7 @@ def is_overlap(self, transposon):
 
 Otra parte fundamental de nuestra métrica es definir la longitud del sobrelape, en caso de que lo haya. Para ello, vamos a construir otro método que se encargue de calcularlo,
 
-```
+```python
 # Definir el tamaño del sobrelape
 def get_overlap(self, transposon):
     return max(0, min(self.last-transposon.first,
@@ -140,25 +140,25 @@ def get_overlap(self, transposon):
 
 Adicionalmente, vamos a definir algunos métodos especiales del protocolo de Python, conocidos en ingles como *dunder methods*. Estas funciones ya se encuentran incorporadas al lenguaje, y nos permiten utilizar otros métodos reservados como `len` o inclusive las comparaciones numéricas e igualdades. En este caso, vamos a crear un método que retorne la longitud de nuestro transposon, otro para comparación e igualdad y la representación en cadena de texto,
 
-```
+```python
 # Retornar la longitud del transposon
 def __len__(self):
     return self.last - self.first + 1
 ```
 
-```
+```python
 # Retornar la comparacion de la fiabilidad con otro transposon
 def __gt__(self, transposon):
     return self.score > transposon.score
 ```
 
-```
+```python
 # Retornar la definicion de igualdad con otro transposon
 def __eq__(self, transposon):
     return self.score == transposon.score
 ```
 
-```
+```python
 # Definir la representacion de cadena de texto
 def __str__(self):
     return '{}\t{}\t{}'.format(self.sequence_name, self.first, self.last)
@@ -166,13 +166,13 @@ def __str__(self):
 
 Como ya tenemos la representación de nuestro objeto, lo que sigue es poder pasar nuestros datos cargados en el dataframe de Pandas a nuestra clase en el archivo `main.py`. Lo primero que tenemos que hacer, es importar la clase que esta en el archivo `transposon.py`,
 
-```
+```python
 from workshop.transposon import Transposon
 ```
 
 Después, vamos a crear una función para procesar la información,
 
-```
+```python
 #%% Pasar los datos a la clase transposon
 def process_info(df):
     act_info = {}
@@ -195,7 +195,7 @@ def process_info(df):
 
 Y llamamos a cada uno de nuestros dataframes para convertirlos a una lista de objetos de tipo Transposon,
 
-```
+```python
 anotaciones = process_info(anotaciones)
 pred_a = process_info(pred_a)
 pred_b = process_info(pred_b)
@@ -204,7 +204,7 @@ pred_b = process_info(pred_b)
 ## Calculando las métricas de evaluación <a name="met"></a>
 En muchos problemas de detección encontramos que no hay un umbral específico definido para definir si una predicción es correcta. Por ello, vamos a definir una función que reciba este valor como un parámetro. Esta función va a calcular el valor de verdaderos positivos, falsos negativos, falsos positivos,
 
-```
+```python
 # Calcular verdaderos positivos, falsos positivos y falsos negativos
 def get_single_instance_results(gts, preds, thresh):
     tp = 0
@@ -239,19 +239,19 @@ def get_single_instance_results(gts, preds, thresh):
 
 Ya calculados los valores de verdaderos positivos, falsos positivos y falsos negativos, podemos definir las funciones que calculan la presición, cobertura y F-medida de la siguiente forma,
 
-```
+```python
 # Calcular presicion
 def calculate_precision(tp, fp):
     return tp/(tp + fp + 1e-9)
 ```
 
-```
+```python
 # Calcular cobertura
 def calculate_recall(tp, fn):
     return tp/(tp + fn + 1e-9)
 ```
 
-```
+```python
 # Calcular F-medida
 def calculate_fmeasure(precision, recall):
     return (2*precision*recall)/(precision + recall + 1e-9)
@@ -259,7 +259,7 @@ def calculate_fmeasure(precision, recall):
 
 Ya que tenemos todas nuestras funciones auxiliares definidas, podemos definir la función que va a calcular todas las métricas por cromosoma. Así, podemos sacar los valores de las métricas globales, pero también por cromosoma si se deseara.
 
-```
+```python
 def calculate_metrics(gt, pred, thresh=0.5, verbose=True):
     names = list(set(gt.keys()).union(set(pred.keys())))
     cum_tp, cum_fp, cum_fn, total_p, total_gt = 0, 0, 0, 0, 0
@@ -306,7 +306,7 @@ def calculate_metrics(gt, pred, thresh=0.5, verbose=True):
 
 Así, logramos sacar los resultados para nuestras dos predicciones previamente cargadas,
 
-```
+```python
 # Sacar los resultados de nuestras predicciones
 result_a = calculate_metrics(anotaciones, pred_a)
 result_b = calculate_metrics(anotaciones, pred_b)
@@ -318,14 +318,14 @@ Como ya pudimos calcular los resultados para precisión, cobertura, F-medida, to
 ### Curva de precisión/cobertura
 En este caso, vamos a variar los valores del `score`, para ello definimos una lista con los incrementos que vamos a probar para generar nuestra gráfica,
 
-```
+```python
 # Puntajes de confianza de 0 a 16000 con pasos de 5
 scores = np.linspace(0, 16000, 5)
 ```
 
 Adicionalmente, vamos a crear una función que solamente tenga en cuenta los transposones detectados con un puntaje mayor al dado,
 
-```
+```python
 # Calcular todas las métricas para multiples puntajes
 def calculate_multiple_scores(gt, preds, thresh, scores):
     precisions = []
@@ -357,7 +357,7 @@ def calculate_multiple_scores(gt, preds, thresh, scores):
 
 Utilizamos matplotlib para definir la gráfica de la siguiente manera,
 
-```
+```python
 # Función para generar la gráfica de precision cobertura
 def plot_PR(precisions, recalls, threshs=0.5):
     plt.plot(recalls, precisions, label=threshs)
@@ -372,7 +372,7 @@ def plot_PR(precisions, recalls, threshs=0.5):
 
 Seguidamente, graficámos los resultados de nuestras predicciones,
 
-```
+```python
 # Graficar los resultados de nuestras predicciones
 grafica_a = calculate_multiple_scores(anotaciones, pred_a, 0.5, scores)
 plot_PR(grafica_a[0], grafica_a[1], 0.5)
@@ -384,7 +384,7 @@ plot_PR(grafica_b[0], grafica_b[1], 0.5)
 ### Curva ROC
 De forma similar y utilizando el paquete de metricas de `sklearn` podremos gráficar la curva Característica Operativa del Receptor (ROC). Para ello, vamos a definir una nueva función,
 
-```
+```python
 # Función para generar la gráfica ROC
 def plot_ROC(fpr, tpr):
     """Plot ROC curve."""
@@ -397,7 +397,7 @@ def plot_ROC(fpr, tpr):
 
 Por último, graficámos los resultados de nuetras predicciones,
 
-```
+```python
 # Graficar los resultados de nuestras predicciones
 plot_ROC(grafica_a[2], grafica_a[3])
 
