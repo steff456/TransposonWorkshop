@@ -50,6 +50,14 @@ conda install numpy matplotlib scikit-learn pandas -c conda-forge
 
 **Nota:** Si utilizó uno de los instaladores para Mac o Windows de Spyder terminal por favor siga las instrucciones para conectar nuestro nuevo ambiente al editor de Spyder disponibles [aquí](https://docs.spyder-ide.org/current/faq.html#using-existing-environment).
 
+### Usar Binder
+
+Si tuvo problemas al instalar Spyder localmente, puede seguir este workshop al hacer click en el botón que aparece a continuación. Esto abrirá una pestaña en su navegador con Spyder y todos los paquetes y materiales necesarios para el mismo.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/spyder-ide/binder-environments/women-in-bds?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fsteff456%252FWorkshopTransposones%26urlpath%3Ddesktop%252F%26branch%3Dmain)
+
+**Nota:** Por favor tenga en cuenta que esta es una sesión temporal, lo que implica que todo el trabajo realizado en la misma se perderá tan pronto se cierre la pestaña de Binder.
+
 ## Primeros pasos <a name="pripasos"></a>
 Si está familiarizado con `git`, por favor clone el siguiente repositorio,
 
